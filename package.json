@@ -14,6 +14,7 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
         "lucide-react": "^0.368.0",
+        "bcrypt": "^5.1.1",
         "mongoose": "^8.3.1",
         "next": "14.2.1",
         "react": "^18",
@@ -25,6 +26,7 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",

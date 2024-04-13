@@ -1,6 +1,10 @@
 import { Schema, model, models } from 'mongoose';
 
 export const businessSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+    },
     business_name: {
         type: String,
         required: true,
@@ -31,3 +35,5 @@ export const businessSchema = new Schema({
         default: 0,
     },
 });
+
+export const Business = models.business || model('business', businessSchema);

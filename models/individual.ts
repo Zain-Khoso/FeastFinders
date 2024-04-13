@@ -1,6 +1,10 @@
 import { Schema, model, models } from 'mongoose';
 
 export const individualSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+    },
     firstname: {
         type: String,
         required: true,
@@ -15,7 +19,7 @@ export const individualSchema = new Schema({
     },
     gender: {
         type: String,
-        enum: ['Male', 'Female'],
+        enum: ['male', 'female'],
     },
     dob: {
         type: String,
@@ -35,3 +39,5 @@ export const individualSchema = new Schema({
         max: 180,
     },
 });
+export const Individual =
+    models.individual || model('individual', individualSchema);

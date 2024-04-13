@@ -1,6 +1,4 @@
 import { Schema, models, model } from 'mongoose';
-import { individualSchema } from './individual';
-import { businessSchema } from './business';
 
 const userSchema = new Schema(
     {
@@ -42,18 +40,19 @@ const userSchema = new Schema(
             enum: ['active', 'disable', 'suspended', 'deleted'],
             default: 'active',
         },
+        individual: {
+            type: Schema.Types.ObjectId,
+            ref: 'individual',
+            required: false,
+        },
+        business: {
+            type: Schema.Types.ObjectId,
+            ref: 'business',
+            required: false,
+        },
     },
     {
         timestamps: true,
     }
 );
-const discriminatorKey = 'account_type';
-
-// Define the base model
-const User = models?.User || model('User', userSchema);
-
-// Define the individual and business models using discriminators
-const Individual = User.discriminator('Individual', individualSchema);
-const Business = User.discriminator('Business', businessSchema);
-
-export { User, Individual, Business };
+export const User = models.User || model('User', userSchema);
