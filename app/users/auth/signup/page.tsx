@@ -2,39 +2,23 @@
 
 // Lib Imports.
 import Link from 'next/link';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaUser, FaBusinessTime, FaArrowRight } from 'react-icons/fa';
 
 // Local Imports.
 import { Button } from '@/components/ui/button';
 
-// Types.
-const formSchema = z.object({
-    account_type: z.enum(['individual', 'business']),
-});
-type FormData = z.infer<typeof formSchema>;
-
 // Component.
 export default function SignUpForm() {
-    // React Hook Form Config.
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormData>({
-        values: {
-            account_type: 'individual',
-        },
-        resolver: zodResolver(formSchema),
-    });
-
+    const [type, setType] = useState('individual');
     const router = useRouter();
 
-    const onSubmit: SubmitHandler<FormData> = function (data) {
-        router.push(`signup/${data.account_type}`);
+    const onSubmit: React.FormEventHandler<HTMLFormElement> = function (
+        event: React.SyntheticEvent<HTMLFormElement>
+    ) {
+        event.preventDefault();
+        router.push(`signup/${type}`);
     };
 
     return (
@@ -50,32 +34,31 @@ export default function SignUpForm() {
             {/* Body || Form */}
             <form
                 className="w-full flex-1 flex flex-col justify-around items-center py-4"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={onSubmit}
             >
                 <h2 className="text-slate-500 text-xl font-medium">
                     Account Type
                 </h2>
 
-                {errors.account_type && (
-                    <span className="text-red-500">
-                        {errors.account_type.message}
-                    </span>
-                )}
                 <div className="w-full flex gap-4 px-4">
                     {/* Hidden radio inputs for choice functionality. */}
                     <input
-                        {...register('account_type')}
                         type="radio"
-                        value="individual"
                         id="choice_1"
+                        name="account_type"
+                        value="individual"
                         className="hidden peer/choice1"
+                        checked={type === 'individual'}
+                        onChange={(e) => setType(e.target.value)}
                     />
                     <input
-                        {...register('account_type')}
                         type="radio"
-                        value="business"
                         id="choice_2"
+                        name="account_type"
+                        value="business"
                         className="hidden peer/choice2"
+                        checked={type === 'business'}
+                        onChange={(e) => setType(e.target.value)}
                     />
 
                     {/* Labels for the inputs | Visible choices */}
