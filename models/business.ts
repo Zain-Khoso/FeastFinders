@@ -18,6 +18,10 @@ export const businessSchema = new Schema({
         type: String,
         default: '',
     },
+    business_category: {
+        type: Schema.Types.ObjectId,
+        ref: 'business-category',
+    },
     about_me: {
         type: String,
         default: '',

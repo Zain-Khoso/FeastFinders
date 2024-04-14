@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcrypt';
 import { connectToMongodb } from '@/utils/db';
 import { Business } from '@/models/business';
+import { BusinessCategory } from '@/models/business_categories';
 
 connectToMongodb();
 
@@ -18,11 +19,23 @@ export async function POST(req: NextRequest) {
             password,
             business_name,
             business_hours,
+            business_category,
             address,
             gender,
             dob,
             about_me,
         } = await req.json();
+
+        const businessCategory = await BusinessCategory.findOne({
+            _id: business_category,
+        });
+
+        if (!businessCategory) {
+            return NextResponse.json({
+                status: false,
+                message: 'Invalid Business Category',
+            });
+        }
 
         const salt = await bcryptjs.genSalt(10);
         password = await bcryptjs.hash(password, salt);
@@ -47,6 +60,7 @@ export async function POST(req: NextRequest) {
             dob,
             about_me,
             userId: user?._id,
+            business_category,
         });
 
         await business.save();
@@ -64,7 +78,6 @@ export async function POST(req: NextRequest) {
             status: true,
         });
     } catch (error: any) {
-        console.log(error.message);
         return NextResponse.json({
             message: 'Failed to create user',
             status: false,

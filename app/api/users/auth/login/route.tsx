@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { connectToMongodb } from '@/utils/db';
 import { Individual } from '@/models/individual';
 import { Business } from '@/models/business';
+import { BusinessCategory } from '@/models/business_categories';
 
 connectToMongodb();
 
@@ -41,6 +42,15 @@ export async function POST(req: NextRequest) {
                 ? await Individual.findOne({ userId: user?._id })
                 : await Business.findOne({ userId: user?._id });
 
+        if (user?.account_type === 'business') {
+            const _id = user.business.business_category;
+            user.business.business_category = await BusinessCategory.findOne({
+                _id,
+            });
+        }
+
+        user.password = '';
+
         const payload = {
             user: {
                 _id: user?._id,
@@ -56,7 +66,6 @@ export async function POST(req: NextRequest) {
             user,
         });
     } catch (error: any) {
-        console.log(error);
         return NextResponse.json({
             message: 'Failed to login',
             status: false,
