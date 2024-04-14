@@ -1,6 +1,9 @@
 // Lib Imports.
 import Link from 'next/link';
 
+// Local Imports.
+import { GoBack } from '@/components/GoBack';
+
 // Types.
 type Props = { children: React.ReactNode };
 
@@ -18,7 +21,7 @@ export default function layout({ children }: Props) {
             {/* Body || Form */}
             {children}
             {/* Footer || Log In Link */}
-            <footer className="w-full flex justify-center">
+            <footer className="w-full flex flex-col gap-2 justify-center items-center">
                 <p className="text-slate-400 text-md">
                     Already have an account?&nbsp;
                     <Link href="/users/auth/lgoin" className=" text-cyan-500">
@@ -26,6 +29,8 @@ export default function layout({ children }: Props) {
                     </Link>
                     .
                 </p>
+
+                <GoBack />
             </footer>
         </>
     );
