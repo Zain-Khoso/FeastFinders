@@ -7,11 +7,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaUser, FaBusinessTime, FaArrowRight } from 'react-icons/fa';
 
 // Local Imports.
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 
 // Types.
 const formSchema = z.object({
-    account_type: z.string(),
+    account_type: z.enum(['individual', 'business']),
 });
 type FormData = z.infer<typeof formSchema>;
 
@@ -21,7 +21,6 @@ export default function SignUpForm() {
     const {
         register,
         handleSubmit,
-        setValue,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -82,7 +81,7 @@ export default function SignUpForm() {
                     </label>
                 </div>
 
-                <Button type="button" className="primary-gradiant">
+                <Button className="primary-gradiant">
                     Next <FaArrowRight className="ml-1" size={12} />
                 </Button>
             </section>
