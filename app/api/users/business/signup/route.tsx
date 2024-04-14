@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
             username,
             account_type,
             password,
-            buiness_name,
-            buiness_hours,
+            business_name,
+            business_hours,
             address,
             gender,
             dob,
@@ -40,8 +40,8 @@ export async function POST(req: NextRequest) {
         await user.save();
 
         const business = await Business.create({
-            buiness_name,
-            buiness_hours,
+            business_name,
+            business_hours,
             address,
             gender,
             dob,
