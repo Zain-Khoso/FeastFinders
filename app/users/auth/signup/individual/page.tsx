@@ -38,7 +38,7 @@ export default function SignupPage() {
             <div className="w-full flex justify-center">
                 <p className="text-slate-400 text-md">
                     Already have an account?&nbsp;
-                    <Link href="/users/auth/lgoin" className=" text-cyan-500">
+                    <Link href="/users/auth/login" className=" text-cyan-500">
                         Login
                     </Link>
                     .

@@ -38,6 +38,14 @@ export const individualSchema = new Schema({
         default: '',
         max: 180,
     },
+    feast_points: {
+        type: Number,
+        default: 0,
+    },
+    rider: {
+        type: Schema.Types.ObjectId,
+        ref: 'rider',
+    },
 });
 export const Individual =
     models.individual || model('individual', individualSchema);
