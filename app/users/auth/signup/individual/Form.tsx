@@ -1,20 +1,37 @@
 'use client';
 
 // Lib Imports.
-import { useReducer } from 'react';
+import { useState, useReducer } from 'react';
 
 // Local Imports.
-import UsernameEmail from './UsernameEmail';
-
+import UsernameEmail from '../UsernameEmail';
+import CountryCityPhone from '../CountryCityPhone';
 import reducer from './reducer';
+
 // Component.
 export default function Form() {
-    const [_, dispatch] = useReducer(reducer, {});
+    const [step, setStep] = useState(1);
+    const [state, dispatch] = useReducer(reducer, {});
 
-    return (
-        <section className="w-full flex-1 py-4">
-            {/* Email & Password */}
-            <UsernameEmail dispatch={dispatch} />
-        </section>
-    );
+    const nextStep = () => setStep(step + 1);
+    const prevStep = () => setStep(step - 1);
+
+    if (step === 1)
+        return (
+            <UsernameEmail
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+            />
+        );
+
+    if (step === 2)
+        return (
+            <CountryCityPhone
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
 }

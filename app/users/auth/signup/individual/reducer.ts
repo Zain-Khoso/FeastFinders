@@ -1,7 +1,10 @@
 // Types.
-type State = {
+export type State = {
     email: string;
     username: string;
+    country: string;
+    city: string;
+    phone: string;
 };
 export type Action = {
     fieldName: string;
