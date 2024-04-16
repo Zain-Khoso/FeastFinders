@@ -4,7 +4,8 @@
 import { useState, useReducer } from 'react';
 
 // Local Imports.
-import UsernameEmail from '../UsernameEmail';
+import EmailPhone from '../EmailPhone';
+import UsernamePassword from '../UsernamePassword';
 import CountryCityPhone from '../CountryCityPhone';
 import reducer from './reducer';
 
@@ -18,14 +19,22 @@ export default function Form() {
 
     if (step === 1)
         return (
-            <UsernameEmail
+            <EmailPhone
                 defaultValues={state}
                 dispatch={dispatch}
                 nextStep={nextStep}
             />
         );
-
-    if (step === 2)
+    else if (step === 2)
+        return (
+            <UsernamePassword
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
+    else if (step === 3)
         return (
             <CountryCityPhone
                 defaultValues={state}

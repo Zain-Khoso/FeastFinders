@@ -3,8 +3,10 @@
 // Lib Imports.
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { FaArrowRight } from 'react-icons/fa';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 // Local Imports.
 import type { State, Action } from './individual/reducer';
@@ -19,12 +21,16 @@ type Props = {
 };
 
 const formSchema = z.object({
-    email: z.string().email(),
-    username: z.string().min(6).max(16),
+    email: z.string().email({ message: 'Invalid Email Address' }),
+    phone: z
+        .string()
+        .regex(/^(\+?\d{1,3})?[-. (]?\d{3}[-. )]?\d{3}[-. ]?\d{4}$/, {
+            message: 'Invalid Phone',
+        }),
 });
 type FormData = z.infer<typeof formSchema>;
 
-export default function UsernameEmail({
+export default function EmailPhone({
     defaultValues,
     dispatch,
     nextStep,
@@ -33,6 +39,7 @@ export default function UsernameEmail({
     const {
         register,
         handleSubmit,
+        control,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -57,7 +64,7 @@ export default function UsernameEmail({
             onSubmit={handleSubmit(onSubmit)}
         >
             <h2 className="text-slate-500 text-xl font-medium">
-                Email & Username
+                Email & Phone
             </h2>
 
             <div className="w-full flex flex-col gap-2 px-2">
@@ -72,16 +79,24 @@ export default function UsernameEmail({
                     style={{ outlineWidth: '0px !important' }}
                     className="w-full focus-visible:ring-1 focus-visible:ring-offset-1"
                 />
-                {errors.username && (
+
+                {errors.phone && (
                     <span className="text-sm text-red-400">
-                        {errors.username.message}
+                        {errors.phone.message}
                     </span>
                 )}
-                <Input
-                    {...register('username')}
-                    placeholder="Username"
-                    style={{ outlineWidth: '0px !important' }}
-                    className="w-full focus-visible:ring-1 focus-visible:ring-offset-1"
+                <Controller
+                    control={control}
+                    name="phone"
+                    render={({ field: { ref, ...field } }) => (
+                        <PhoneInput
+                            {...field}
+                            inputProps={{ ref }}
+                            country={'pk'}
+                            specialLabel={'Personal Mobile Number'}
+                            inputClass="max-w-full"
+                        />
+                    )}
                 />
             </div>
 
