@@ -4,7 +4,7 @@
 import { useState, useReducer } from 'react';
 
 // Local Imports.
-import EmailPhoneCountryCity from '../EmailPhoneCountryCity';
+import EmailUsernamePhone from '../EmailUsernamePhone';
 import reducer from './reducer';
 
 // Component.
@@ -17,7 +17,7 @@ export default function Form() {
 
     if (step === 1)
         return (
-            <EmailPhoneCountryCity
+            <EmailUsernamePhone
                 defaultValues={state}
                 dispatch={dispatch}
                 nextStep={nextStep}
