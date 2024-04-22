@@ -5,11 +5,12 @@ import { useState, useReducer } from 'react';
 
 // Local Imports.
 import EmailUsernamePhone from '../EmailUsernamePhone';
+import CountryCity from "../CountryCity"
 import reducer from './reducer';
 
 // Component.
 export default function Form() {
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(2);
     const [state, dispatch] = useReducer(reducer, {});
 
     const nextStep = () => setStep(step + 1);
@@ -24,13 +25,13 @@ export default function Form() {
             />
         );
 
-    // if (step === 2)
-    //     return (
-    //         <CountryCityPhone
-    //             defaultValues={state}
-    //             dispatch={dispatch}
-    //             nextStep={nextStep}
-    //             prevStep={prevStep}
-    //         />
-    //     );
+    else if (step === 2)
+        return (
+            <CountryCity
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
 }

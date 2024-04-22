@@ -147,7 +147,7 @@ export default function EmailPhoneCountryCity({
                 />
 
                 <div className="flex justify-center items-center gap-4 !mt-8">
-                    <Button className="primary-gradiant">
+                    <Button className="primary-gradiant gap-1">
                         Next <FaArrowRight className="ml-1" size={12} />
                     </Button>
                 </div>
