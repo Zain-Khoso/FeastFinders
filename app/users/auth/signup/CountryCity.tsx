@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaArrowRight, FaArrowLeft, FaSort, FaCheck } from 'react-icons/fa';
 
 // Local Imports.
-import countries from '@/data/countries.json';
+import { getCountriesAndCities } from '@/utils/getStaticData';
 import type { State, Action } from './individual/reducer';
 import {
     Form,
@@ -45,6 +45,9 @@ const formSchema = z.object({
     city: z.string({ required_error: 'Tell us where do you live.' }),
 });
 type FormData = z.infer<typeof formSchema>;
+
+// Data.
+const data = getCountriesAndCities();
 
 // Component.
 export default function EmailPhoneCountryCity({
@@ -98,11 +101,10 @@ export default function EmailPhoneCountryCity({
                                             }`}
                                         >
                                             {field.value
-                                                ? countries.find(
-                                                      (country) =>
-                                                          country.name ===
-                                                          field.value
-                                                  )?.name
+                                                ? Object.keys(data).find(
+                                                      (key: any) =>
+                                                          key === field.value
+                                                  )
                                                 : 'Select country'}
                                             <FaSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
@@ -110,7 +112,7 @@ export default function EmailPhoneCountryCity({
                                 </PopoverTrigger>
 
                                 <PopoverContent className="p-0">
-                                    <Command className='max-h-[200px]'>
+                                    <Command className="max-h-[200px]">
                                         <CommandInput placeholder="Search country..." />
                                         <CommandEmpty>
                                             No country found.
@@ -118,29 +120,31 @@ export default function EmailPhoneCountryCity({
 
                                         <CommandList>
                                             <CommandGroup>
-                                                {countries.map((country) => (
-                                                    <CommandItem
-                                                        value={country.name}
-                                                        key={country.name}
-                                                        onSelect={() => {
-                                                            form.setValue(
-                                                                'country',
-                                                                country.name
-                                                            );
-                                                        }}
-                                                    >
-                                                        <FaCheck
-                                                            className={
-                                                                'mr-2 h-4 w-4' +
-                                                                    country.name ===
-                                                                field.value
-                                                                    ? 'opacity-100'
-                                                                    : 'opacity-0'
-                                                            }
-                                                        />
-                                                        {country.name}
-                                                    </CommandItem>
-                                                ))}
+                                                {Object.keys(data).map(
+                                                    (country: any) => (
+                                                        <CommandItem
+                                                            value={country}
+                                                            key={country}
+                                                            onSelect={() => {
+                                                                form.setValue(
+                                                                    'country',
+                                                                    country
+                                                                );
+                                                            }}
+                                                        >
+                                                            <FaCheck
+                                                                className={
+                                                                    'mr-2 h-4 w-4' +
+                                                                        country ===
+                                                                    field.value
+                                                                        ? 'opacity-100'
+                                                                        : 'opacity-0'
+                                                                }
+                                                            />
+                                                            {country}
+                                                        </CommandItem>
+                                                    )
+                                                )}
                                             </CommandGroup>
                                         </CommandList>
                                     </Command>
@@ -174,11 +178,12 @@ export default function EmailPhoneCountryCity({
                                             }`}
                                         >
                                             {field.value
-                                                ? countries.find(
-                                                      (city) =>
-                                                          city.name ===
-                                                          field.value
-                                                  )?.name
+                                                ? data[
+                                                      form.watch('country')
+                                                  ]?.find(
+                                                      (city: any) =>
+                                                          city === field.value
+                                                  ) || 'Select city'
                                                 : 'Select city'}
                                             <FaSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
@@ -186,7 +191,7 @@ export default function EmailPhoneCountryCity({
                                 </PopoverTrigger>
 
                                 <PopoverContent className="p-0">
-                                    <Command className='max-h-[200px]'>
+                                    <Command className="max-h-[200px]">
                                         <CommandInput placeholder="Search city..." />
                                         <CommandEmpty>
                                             No city found.
@@ -194,27 +199,29 @@ export default function EmailPhoneCountryCity({
 
                                         <CommandList>
                                             <CommandGroup>
-                                                {countries.map((city) => (
+                                                {data[
+                                                    form.watch('country')
+                                                ]?.map((city: any) => (
                                                     <CommandItem
-                                                        value={city.name}
-                                                        key={city.name}
+                                                        value={city}
+                                                        key={city}
                                                         onSelect={() => {
                                                             form.setValue(
                                                                 'city',
-                                                                city.name
+                                                                city
                                                             );
                                                         }}
                                                     >
                                                         <FaCheck
                                                             className={
                                                                 'mr-2 h-4 w-4' +
-                                                                    city.name ===
+                                                                    city ===
                                                                 field.value
                                                                     ? 'opacity-100'
                                                                     : 'opacity-0'
                                                             }
                                                         />
-                                                        {city.name}
+                                                        {city}
                                                     </CommandItem>
                                                 ))}
                                             </CommandGroup>
