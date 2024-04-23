@@ -9,10 +9,11 @@ import EmailUsernamePhone from '../EmailUsernamePhone';
 import CountryCity from '../CountryCity';
 import FirstnameLastname from './FirstnameLastname';
 import AddressAboutMe from '../AddressAboutMe';
+import GenderDOB from './GenderDOB';
 
 // Component.
 export default function Form() {
-    const [step, setStep] = useState(4);
+    const [step, setStep] = useState(1);
     const [state, dispatch] = useReducer(reducer, {});
 
     const nextStep = () => setStep(step + 1);
@@ -47,6 +48,15 @@ export default function Form() {
     else if (step === 4)
         return (
             <AddressAboutMe
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
+    else if (step === 5)
+        return (
+            <GenderDOB
                 defaultValues={state}
                 dispatch={dispatch}
                 nextStep={nextStep}

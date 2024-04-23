@@ -7,13 +7,13 @@ export type State = {
     city: string;
     username: string;
     password: string;
-    profilePicture: string;
-    coverPicture: string;
+    profilePicture?: string;
+    coverPicture?: string;
     about_me: string;
     firstname: string;
     lastname: string;
-    gender: string;
-    dob: string;
+    gender?: 'male' | 'female';
+    dob?: string;
     address: string;
 };
 export type Action = {
