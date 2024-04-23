@@ -1,7 +1,7 @@
 'use client';
 
 // Lib Imports.
-import { date, z } from 'zod';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaArrowRight, FaArrowLeft, FaCalendar } from 'react-icons/fa';
