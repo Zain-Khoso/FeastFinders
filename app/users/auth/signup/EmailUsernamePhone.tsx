@@ -4,11 +4,12 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaSpinner } from 'react-icons/fa';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 // Local Imports.
+import { Api } from '@/utils/axiosInstances';
 import type { State, Action } from './individual/reducer';
 import {
     Form,
@@ -69,7 +70,25 @@ export default function EmailPhoneCountryCity({
         defaultValues,
     });
 
-    const onSubmit: SubmitHandler<FormData> = function (data) {
+    const onSubmit: SubmitHandler<FormData> = async function (data) {
+        const res = await Api.post('/api/users/available', data);
+
+        if (!res.data.status) {
+            const { email, username, phone } = res.data.errors;
+
+            if (email)
+                form.setError('email', { type: 'validate', message: email });
+            if (username)
+                form.setError('username', {
+                    type: 'validate',
+                    message: username,
+                });
+            if (phone)
+                form.setError('phone', { type: 'validate', message: phone });
+
+            return;
+        }
+
         Object.keys(data).forEach((_, index) => {
             dispatch({
                 fieldName: Object.keys(data)[index],
@@ -147,8 +166,19 @@ export default function EmailPhoneCountryCity({
                 />
 
                 <div className="flex justify-center items-center gap-4 !mt-8">
-                    <Button className="primary-gradiant gap-1">
-                        Next <FaArrowRight className="ml-1" size={12} />
+                    <Button
+                        disabled={form.formState.isSubmitting}
+                        className="primary-gradiant gap-1"
+                    >
+                        Next
+                        {form.formState.isSubmitting ? (
+                            <FaSpinner
+                                className="ml-1 animate-spin"
+                                size={12}
+                            />
+                        ) : (
+                            <FaArrowRight className="ml-1" size={12} />
+                        )}
                     </Button>
                 </div>
             </form>
