@@ -4,9 +4,10 @@
 import { useState, useReducer } from 'react';
 
 // Local Imports.
+import reducer from './reducer';
 import EmailUsernamePhone from '../EmailUsernamePhone';
 import CountryCity from '../CountryCity';
-import reducer from './reducer';
+import FirstnameLastname from './FirstnameLastname';
 
 // Component.
 export default function Form() {
@@ -27,6 +28,15 @@ export default function Form() {
     else if (step === 2)
         return (
             <CountryCity
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
+    else if (step === 3)
+        return (
+            <FirstnameLastname
                 defaultValues={state}
                 dispatch={dispatch}
                 nextStep={nextStep}
