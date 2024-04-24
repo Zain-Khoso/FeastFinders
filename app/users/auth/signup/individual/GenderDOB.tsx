@@ -56,7 +56,6 @@ export default function GenderDOB({
     });
 
     const onSubmit: SubmitHandler<FormData> = function (data) {
-        console.log(data.dob);
         Object.keys(data).forEach((_, index) => {
             dispatch({
                 fieldName: Object.keys(data)[index],
@@ -108,7 +107,7 @@ export default function GenderDOB({
                                 >
                                     <Calendar
                                         mode="single"
-                                        selected={field.value}
+                                        selected={new Date(field.value)}
                                         onSelect={(value: any) =>
                                             form.setValue(
                                                 'dob',
