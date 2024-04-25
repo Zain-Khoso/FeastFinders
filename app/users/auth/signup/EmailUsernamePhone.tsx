@@ -32,28 +32,27 @@ type Props = {
 const formSchema = z.object({
     email: z
         .string({ required_error: 'Email is required.' })
-        .email({ message: 'Invalid Email Address' }),
+        .email({ message: 'Invalid email address.' }),
     username: z
         .string({ required_error: 'Username is required.' })
-        .min(4, { message: 'Should be atleast 4 characters long.' })
-        .max(16, { message: 'Should not be longer than 16 characters.' })
+        .min(4, { message: 'Username must be at least 4 characters.' })
+        .max(16, { message: "Username can't exceed 16 characters." })
         .refine(
             (username: string): string | boolean =>
                 /^[a-zA-Z0-9-_]*$/.test(username),
             {
                 message:
-                    'Username can only contain letters (a-z, A-Z), numbers (0-9), underscores (_) and hyphens (-).',
+                    'Username can only contain letters, numbers, underscores, and hyphens.',
             }
         ),
     phone: z
         .string({ required_error: 'Phone is required.' })
-        .min(1, { message: 'A phone number is required.' })
         .refine(
             (phone: string) =>
                 /^(\+?\d{1,3})?[-. (]?\d{3}[-. )]?\d{3}[-. ]?\d{4}$/.test(
                     phone
                 ),
-            { message: 'Invalid Phone.' }
+            { message: 'Invalid phone number format.' }
         ),
 });
 type FormData = z.infer<typeof formSchema>;
@@ -77,14 +76,14 @@ export default function EmailPhoneCountryCity({
             const { email, username, phone } = res.data.errors;
 
             if (email)
-                form.setError('email', { type: 'validate', message: email });
+                form.setError('email', { type: 'custom', message: email });
             if (username)
                 form.setError('username', {
-                    type: 'validate',
+                    type: 'custom',
                     message: username,
                 });
             if (phone)
-                form.setError('phone', { type: 'validate', message: phone });
+                form.setError('phone', { type: 'custom', message: phone });
 
             return;
         }
