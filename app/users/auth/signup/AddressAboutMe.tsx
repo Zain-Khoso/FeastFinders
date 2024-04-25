@@ -29,9 +29,11 @@ type Props = {
 };
 
 const formSchema = z.object({
-    address: z.string({ required_error: 'Address is required.' }),
-    about_me: z.string({ required_error: 'About me is required.' }).max(500, {
-        message: 'Lastname cannot have more than 500 characters.',
+    address: z
+        .string({ required_error: 'Address is required.' })
+        .min(1, { message: 'Address is required.' }),
+    about_me: z.string().max(180, {
+        message: "About me can't exceed 180 characters.",
     }),
 });
 type FormData = z.infer<typeof formSchema>;
