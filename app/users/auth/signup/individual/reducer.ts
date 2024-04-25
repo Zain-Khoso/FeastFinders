@@ -7,6 +7,7 @@ export type State = {
     city: string;
     username: string;
     password: string;
+    confirmPassword: string;
     profilePicture?: string;
     coverPicture?: string;
     about_me: string;
@@ -30,6 +31,7 @@ export const initialState: State = {
     city: '',
     username: '',
     password: '',
+    confirmPassword: '',
     profilePicture: '',
     coverPicture: '',
     about_me: '',

@@ -31,7 +31,8 @@ type Props = {
 const formSchema = z
     .object({
         password: z
-            .string({ required_error: 'Create a strong password.' })
+            .string()
+            .min(1, { message: 'Create a strong password.' })
             .min(8, { message: 'Password must be at least 8 characters.' })
             .max(30, { message: "Password can't exceed 30 characters." })
             .refine(
@@ -104,6 +105,7 @@ export default function Password({
                                         placeholder="A strong password."
                                     />
                                     <Button
+                                        type="button"
                                         variant="outline"
                                         onClick={() =>
                                             setPasswordVisible(!passwordVisible)
@@ -153,6 +155,7 @@ export default function Password({
                                         placeholder="A strong password."
                                     />
                                     <Button
+                                        type="button"
                                         variant="outline"
                                         onClick={() =>
                                             setConfirmPasswordVisible(

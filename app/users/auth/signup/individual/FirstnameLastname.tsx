@@ -29,13 +29,15 @@ type Props = {
 
 const formSchema = z.object({
     firstname: z
-        .string({ required_error: 'Firstname is required.' })
+        .string()
         .trim()
+        .min(1, { message: 'Firstname is required.' })
         .min(3, { message: 'Firstname must be at least 3 characters.' })
         .max(20, { message: "Firstname can't exceed 14 characters." }),
     lastname: z
-        .string({ required_error: 'Lastname is required.' })
+        .string()
         .trim()
+        .min(1, { message: 'Lastname is required.' })
         .min(3, { message: 'Lastname must be at least 3 characters.' })
         .max(20, { message: "Lastname can't exceed 14 characters." }),
 });

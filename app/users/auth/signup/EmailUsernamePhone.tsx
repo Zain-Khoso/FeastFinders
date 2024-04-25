@@ -31,10 +31,12 @@ type Props = {
 
 const formSchema = z.object({
     email: z
-        .string({ required_error: 'Email is required.' })
+        .string()
+        .min(1, { message: 'Email is required.' })
         .email({ message: 'Invalid email address.' }),
     username: z
-        .string({ required_error: 'Username is required.' })
+        .string()
+        .min(1, { message: 'Username is required.' })
         .min(4, { message: 'Username must be at least 4 characters.' })
         .max(16, { message: "Username can't exceed 16 characters." })
         .refine(
@@ -46,7 +48,8 @@ const formSchema = z.object({
             }
         ),
     phone: z
-        .string({ required_error: 'Phone is required.' })
+        .string()
+        .min(1, { message: 'Phone is required.' })
         .refine(
             (phone: string) =>
                 /^(\+?\d{1,3})?[-. (]?\d{3}[-. )]?\d{3}[-. ]?\d{4}$/.test(

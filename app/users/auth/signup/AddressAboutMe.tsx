@@ -29,9 +29,7 @@ type Props = {
 };
 
 const formSchema = z.object({
-    address: z
-        .string({ required_error: 'Address is required.' })
-        .min(1, { message: 'Address is required.' }),
+    address: z.string().min(1, { message: 'Address is required.' }),
     about_me: z.string().max(180, {
         message: "About me can't exceed 180 characters.",
     }),
