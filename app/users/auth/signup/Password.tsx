@@ -1,11 +1,18 @@
 'use client';
 
 // Lib Imports.
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
-import { FaArrowRight, FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
+import {
+    FaCheck,
+    FaSpinner,
+    FaArrowLeft,
+    FaEye,
+    FaEyeSlash,
+} from 'react-icons/fa';
 
 // Local Imports.
 import type { State, Action } from './individual/reducer';
@@ -19,13 +26,14 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 
 // Types.
 type Props = {
     defaultValues: State;
     dispatch: React.Dispatch<Action>;
-    nextStep: () => void;
     prevStep: () => void;
+    signupUser: () => Promise<StatusAndMessageResponse>;
 };
 
 const formSchema = z
@@ -54,8 +62,8 @@ type FormData = z.infer<typeof formSchema>;
 export default function Password({
     defaultValues,
     dispatch,
-    nextStep,
     prevStep,
+    signupUser,
 }: Props) {
     // React Hook Form Config.
     const form = useForm<FormData>({
@@ -63,11 +71,14 @@ export default function Password({
         defaultValues,
     });
 
+    const router = useRouter();
+    const { toast } = useToast();
+
     // Input Visiblity States.
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
-    const onSubmit: SubmitHandler<FormData> = function (data) {
+    const onSubmit: SubmitHandler<FormData> = async function (data) {
         Object.keys(data).forEach((_, index) => {
             dispatch({
                 fieldName: Object.keys(data)[index],
@@ -75,8 +86,29 @@ export default function Password({
             });
         });
 
-        // Going to the next step.
-        nextStep();
+        // Signing the user up.
+        try {
+            const { status, message } = await signupUser();
+
+            if (status) {
+                toast({ title: 'Sign up successful.', description: message });
+                router.push('/');
+            } else {
+                toast({
+                    variant: 'destructive',
+                    title: 'Sign up failed.',
+                    description: message,
+                });
+                router.push('/');
+            }
+        } catch (err: any) {
+            toast({
+                variant: 'destructive',
+                title: 'Sign up failed.',
+                description: err.message,
+            });
+            router.push('/');
+        }
     };
 
     return (
@@ -86,6 +118,7 @@ export default function Password({
                 <FormField
                     control={form.control}
                     name="password"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             {form.formState.errors.password ? (
@@ -136,6 +169,7 @@ export default function Password({
                 <FormField
                     control={form.control}
                     name="confirmPassword"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             {form.formState.errors.confirmPassword ? (
@@ -179,14 +213,26 @@ export default function Password({
                     <Button
                         variant="outline"
                         type="button"
+                        disabled={form.formState.isSubmitting}
                         onClick={prevStep}
                         className="text-slate-500 gap-1"
                     >
                         <FaArrowLeft size={12} /> Prev
                     </Button>
 
-                    <Button className="primary-gradiant gap-1">
-                        Next <FaArrowRight className="ml-1" size={12} />
+                    <Button
+                        disabled={form.formState.isSubmitting}
+                        className="primary-gradiant gap-1"
+                    >
+                        Sign Up{' '}
+                        {form.formState.isSubmitting ? (
+                            <FaSpinner
+                                className="ml-1 animate-spin"
+                                size={12}
+                            />
+                        ) : (
+                            <FaCheck className="ml-1" size={12} />
+                        )}
                     </Button>
                 </div>
             </form>

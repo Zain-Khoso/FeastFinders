@@ -4,6 +4,7 @@
 import { useState, useReducer } from 'react';
 
 // Local Imports.
+import { Api } from '@/utils/axiosInstances';
 import reducer, { initialState } from './reducer';
 import EmailUsernamePhone from '../EmailUsernamePhone';
 import CountryCity from '../CountryCity';
@@ -19,6 +20,10 @@ export default function Form() {
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
+    const signupUser = async function (): Promise<StatusAndMessageResponse> {
+        const { data } = await Api.post('/api/users/individual/signup', state);
+        return data;
+    };
 
     if (step === 1)
         return (
@@ -69,8 +74,8 @@ export default function Form() {
             <Password
                 defaultValues={state}
                 dispatch={dispatch}
-                nextStep={nextStep}
                 prevStep={prevStep}
+                signupUser={signupUser}
             />
         );
 }

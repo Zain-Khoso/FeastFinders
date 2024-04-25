@@ -1,6 +1,7 @@
 // Lib Imports.
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { Toaster } from '@/components/ui/toaster';
 
 // Local Imports.
 import './globals.css';
@@ -54,7 +55,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<Props>) {
     return (
         <html lang="en">
-            <body className={font.className}>{children}</body>
+            <body className={font.className}>
+                <Toaster />
+                {children}
+            </body>
         </html>
     );
 }

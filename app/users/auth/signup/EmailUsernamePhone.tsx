@@ -109,6 +109,7 @@ export default function EmailPhoneCountryCity({
                 <FormField
                     control={form.control}
                     name="email"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             {form.formState.errors.email ? (
@@ -130,6 +131,7 @@ export default function EmailPhoneCountryCity({
                 <FormField
                     control={form.control}
                     name="username"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             {form.formState.errors.username ? (
@@ -148,6 +150,7 @@ export default function EmailPhoneCountryCity({
                 <FormField
                     control={form.control}
                     name="phone"
+                    disabled={form.formState.isSubmitting}
                     render={({ field: { ref, ...field } }) => (
                         <FormItem>
                             {form.formState.errors.phone ? (
