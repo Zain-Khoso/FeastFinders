@@ -32,11 +32,11 @@ const formSchema = z
     .object({
         password: z
             .string({ required_error: 'Create a strong password.' })
-            .min(8, { message: 'Password must be at least 8 characters long.' })
-            .max(30, { message: 'Password cannot exceed 30 characters.' })
+            .min(8, { message: 'Password must be at least 8 characters.' })
+            .max(30, { message: "Password can't exceed 30 characters." })
             .refine(
                 (password) =>
-                    /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])[a-zA-Z0-9!@#$%^&*()_+]+$/.test(
+                    /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+.])[a-zA-Z0-9!@#$%^&*()_+.]+$/.test(
                         password
                     ),
                 { message: 'Passwod not strong enough.' }
