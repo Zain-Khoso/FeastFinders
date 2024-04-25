@@ -41,8 +41,8 @@ type Props = {
 };
 
 const formSchema = z.object({
-    country: z.string({ required_error: 'Tell us where you are from.' }),
-    city: z.string({ required_error: 'Tell us where do you live.' }),
+    country: z.string({ required_error: 'Country is required.' }),
+    city: z.string({ required_error: 'City is required.' }),
 });
 type FormData = z.infer<typeof formSchema>;
 
