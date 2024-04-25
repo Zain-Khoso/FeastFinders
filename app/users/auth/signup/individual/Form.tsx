@@ -4,7 +4,7 @@
 import { useState, useReducer } from 'react';
 
 // Local Imports.
-import reducer from './reducer';
+import reducer, { initialState } from './reducer';
 import EmailUsernamePhone from '../EmailUsernamePhone';
 import CountryCity from '../CountryCity';
 import FirstnameLastname from './FirstnameLastname';
@@ -15,7 +15,7 @@ import Password from '../Password';
 // Component.
 export default function Form() {
     const [step, setStep] = useState(1);
-    const [state, dispatch] = useReducer(reducer, {});
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);

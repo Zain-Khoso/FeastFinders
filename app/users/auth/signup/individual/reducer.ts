@@ -21,6 +21,25 @@ export type Action = {
     fieldValue: string;
 };
 
+// Initial State.
+export const initialState: State = {
+    account_type: 'individual',
+    email: '',
+    phone: '',
+    country: '',
+    city: '',
+    username: '',
+    password: '',
+    profilePicture: '',
+    coverPicture: '',
+    about_me: '',
+    firstname: '',
+    lastname: '',
+    dob: '',
+    address: '',
+};
+
+// Reducer Function.
 export default function reducer(state: State, action: Action) {
     const newFeild: any = {};
     newFeild[action.fieldName] = action.fieldValue;
