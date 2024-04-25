@@ -10,6 +10,7 @@ import CountryCity from '../CountryCity';
 import FirstnameLastname from './FirstnameLastname';
 import AddressAboutMe from '../AddressAboutMe';
 import GenderDOB from './GenderDOB';
+import Password from '../Password';
 
 // Component.
 export default function Form() {
@@ -57,6 +58,15 @@ export default function Form() {
     else if (step === 5)
         return (
             <GenderDOB
+                defaultValues={state}
+                dispatch={dispatch}
+                nextStep={nextStep}
+                prevStep={prevStep}
+            />
+        );
+    else if (step === 6)
+        return (
+            <Password
                 defaultValues={state}
                 dispatch={dispatch}
                 nextStep={nextStep}
