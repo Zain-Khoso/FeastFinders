@@ -30,12 +30,14 @@ type Props = {
 const formSchema = z.object({
     firstname: z
         .string({ required_error: 'Firstname is required.' })
-        .min(3, { message: 'Firstname should have atleast 3 characters.' })
-        .max(20, { message: 'Firstname cannot have more than 20 characters.' }),
+        .trim()
+        .min(3, { message: 'Firstname must be at least 3 characters.' })
+        .max(20, { message: "Firstname can't exceed 14 characters." }),
     lastname: z
         .string({ required_error: 'Lastname is required.' })
-        .min(3, { message: 'Lastname should have atleast 3 characters.' })
-        .max(20, { message: 'Lastname cannot have more than 20 characters.' }),
+        .trim()
+        .min(3, { message: 'Lastname must be at least 3 characters.' })
+        .max(20, { message: "Lastname can't exceed 14 characters." }),
 });
 type FormData = z.infer<typeof formSchema>;
 
