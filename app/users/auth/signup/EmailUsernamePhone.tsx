@@ -4,6 +4,7 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useToast } from '@/components/ui/use-toast';
 import { FaArrowRight, FaSpinner } from 'react-icons/fa';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -72,22 +73,34 @@ export default function EmailPhoneCountryCity({
         defaultValues,
     });
 
+    const { toast } = useToast();
+
     const onSubmit: SubmitHandler<FormData> = async function (data) {
-        const res = await Api.post('/api/users/available', data);
+        try {
+            const res = await Api.post('/api/users/available', data);
 
-        if (!res.data.status) {
-            const { email, username, phone } = res.data.errors;
+            if (!res.data.status) {
+                const { email, username, phone } = res.data.errors;
 
-            if (email)
-                form.setError('email', { type: 'custom', message: email });
-            if (username)
-                form.setError('username', {
-                    type: 'custom',
-                    message: username,
-                });
-            if (phone)
-                form.setError('phone', { type: 'custom', message: phone });
+                if (email)
+                    form.setError('email', { type: 'custom', message: email });
+                if (username)
+                    form.setError('username', {
+                        type: 'custom',
+                        message: username,
+                    });
+                if (phone)
+                    form.setError('phone', { type: 'custom', message: phone });
 
+                return;
+            }
+        } catch {
+            toast({
+                variant: 'destructive',
+                title: 'Server Error.',
+                description:
+                    'Unable to get a response from the server. Please try again later.',
+            });
             return;
         }
 
