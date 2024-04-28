@@ -8,7 +8,14 @@ import { FaArrowRight, FaArrowLeft, FaSort, FaCheck } from 'react-icons/fa';
 
 // Local Imports.
 import { getCountriesAndCities } from '@/utils/getStaticData';
-import type { State, Action } from './individual/reducer';
+import type {
+    State as IndividualState,
+    Action as IndividualAction,
+} from './individual/reducer';
+import type {
+    State as BusinessState,
+    Action as BusinessAction,
+} from './business/reducer';
 import {
     Form,
     FormControl,
@@ -34,8 +41,8 @@ import { Button } from '@/components/ui/button';
 
 // Types.
 type Props = {
-    defaultValues: State;
-    dispatch: React.Dispatch<Action>;
+    defaultValues: IndividualState | BusinessState;
+    dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     nextStep: () => void;
     prevStep: () => void;
 };

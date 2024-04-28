@@ -7,7 +7,14 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 // Local Imports.
-import type { State, Action } from './individual/reducer';
+import type {
+    State as IndividualState,
+    Action as IndividualAction,
+} from './individual/reducer';
+import type {
+    State as BusinessState,
+    Action as BusinessAction,
+} from './business/reducer';
 import {
     Form,
     FormControl,
@@ -22,8 +29,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 // Types.
 type Props = {
-    defaultValues: State;
-    dispatch: React.Dispatch<Action>;
+    defaultValues: IndividualState | BusinessState;
+    dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     nextStep: () => void;
     prevStep: () => void;
 };

@@ -11,7 +11,15 @@ import 'react-phone-input-2/lib/style.css';
 
 // Local Imports.
 import { Api } from '@/utils/axiosInstances';
-import type { State, Action } from './individual/reducer';
+import type {
+    State as IndividualState,
+    Action as IndividualAction,
+} from './individual/reducer';
+import type {
+    State as BusinessState,
+    Action as BusinessAction,
+} from './business/reducer';
+
 import {
     Form,
     FormControl,
@@ -25,8 +33,8 @@ import { Input } from '@/components/ui/input';
 
 // Types.
 type Props = {
-    defaultValues: State;
-    dispatch: React.Dispatch<Action>;
+    defaultValues: IndividualState | BusinessState;
+    dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     nextStep: () => void;
 };
 

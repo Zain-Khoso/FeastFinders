@@ -15,7 +15,14 @@ import {
 } from 'react-icons/fa';
 
 // Local Imports.
-import type { State, Action } from './individual/reducer';
+import type {
+    State as IndividualState,
+    Action as IndividualAction,
+} from './individual/reducer';
+import type {
+    State as BusinessState,
+    Action as BusinessAction,
+} from './business/reducer';
 import {
     Form,
     FormControl,
@@ -30,8 +37,8 @@ import { useToast } from '@/components/ui/use-toast';
 
 // Types.
 type Props = {
-    defaultValues: State;
-    dispatch: React.Dispatch<Action>;
+    defaultValues: IndividualState | BusinessState;
+    dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     prevStep: () => void;
     signupUser: () => Promise<StatusAndMessageResponse>;
 };
