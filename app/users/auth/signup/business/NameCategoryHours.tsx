@@ -85,9 +85,22 @@ export default function NameCategoryHours({
                 });
             }
         })();
-    }, []);
+    }, [form]);
 
-    const onSubmit: SubmitHandler<FormData> = function (data) {
+    const onSubmit: SubmitHandler<FormData> = async function (data) {
+        try {
+            const res = await Api.post('/users/business/available', {
+                business_name: data.business_name,
+            });
+
+            if (!res.data.status) throw new Error();
+        } catch (err: any) {
+            form.setError('business_name', {
+                message: err.response.data.message,
+            });
+            return;
+        }
+
         Object.keys(data).forEach((_, index) => {
             dispatch({
                 fieldName: Object.keys(data)[index],
@@ -112,6 +125,7 @@ export default function NameCategoryHours({
                 <FormField
                     control={form.control}
                     name="business_name"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Business Name</FormLabel>
@@ -129,6 +143,7 @@ export default function NameCategoryHours({
                 <FormField
                     control={form.control}
                     name="business_category"
+                    disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Business Category</FormLabel>
@@ -174,6 +189,7 @@ export default function NameCategoryHours({
                                             setFromHours(value)
                                         }
                                         defaultValue={fromHours}
+                                        disabled={form.formState.isSubmitting}
                                     >
                                         <FormControl>
                                             <SelectTrigger>
@@ -203,6 +219,7 @@ export default function NameCategoryHours({
                                             setToHours(value)
                                         }
                                         defaultValue={toHours}
+                                        disabled={form.formState.isSubmitting}
                                     >
                                         <FormControl>
                                             <SelectTrigger>
@@ -234,11 +251,15 @@ export default function NameCategoryHours({
                         type="button"
                         onClick={prevStep}
                         className="text-slate-500 gap-1"
+                        disabled={form.formState.isSubmitting}
                     >
                         <FaArrowLeft size={12} /> Prev
                     </Button>
 
-                    <Button className="primary-gradiant gap-1">
+                    <Button
+                        className="primary-gradiant gap-1"
+                        disabled={form.formState.isSubmitting}
+                    >
                         Next <FaArrowRight className="ml-1" size={12} />
                     </Button>
                 </div>
