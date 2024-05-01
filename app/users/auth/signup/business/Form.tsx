@@ -14,13 +14,13 @@ import Password from '../Password';
 
 // Component.
 export default function Form() {
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(1);
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
     const signupUser = async function (): Promise<StatusAndMessageResponse> {
-        const { data } = await Api.post('/api/users/business/signup', state);
+        const { data } = await Api.post('/users/business/signup', state);
         return data;
     };
 

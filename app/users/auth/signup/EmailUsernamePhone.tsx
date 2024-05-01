@@ -85,7 +85,7 @@ export default function EmailPhoneCountryCity({
 
     const onSubmit: SubmitHandler<FormData> = async function (data) {
         try {
-            const res = await Api.post('/api/users/available', data);
+            const res = await Api.post('/users/available', data);
 
             if (!res.data.status) {
                 const { email, username, phone } = res.data.errors;

@@ -72,7 +72,7 @@ export default function NameCategoryHours({
         (async function () {
             try {
                 const { data } = await Api.get(
-                    '/api/users/business/categories/get-all-categories'
+                    '/users/business/categories/get-all-categories'
                 );
 
                 if (!data.status) throw new Error();
