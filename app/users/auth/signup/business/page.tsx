@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 // Local Imports.
-// import Form from './Form';
+import Form from './Form';
 
 // Metadata
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function SignupPage() {
             </div>
 
             {/* Body || Form */}
-            {/* <Form /> */}
+            <Form />
 
             {/* Footer || Log In Link */}
             <div className="w-full flex justify-center">
