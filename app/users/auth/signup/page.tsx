@@ -3,7 +3,6 @@
 // Lib Imports.
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { FaUser, FaBusinessTime, FaArrowRight } from 'react-icons/fa';
 
 // Local Imports.
@@ -12,14 +11,6 @@ import { Button } from '@/components/ui/button';
 // Component.
 export default function SignUpForm() {
     const [type, setType] = useState('individual');
-    const router = useRouter();
-
-    const onSubmit: React.FormEventHandler<HTMLFormElement> = function (
-        event: React.SyntheticEvent<HTMLFormElement>
-    ) {
-        event.preventDefault();
-        router.push(`signup/${type}`);
-    };
 
     return (
         <>
@@ -32,10 +23,7 @@ export default function SignUpForm() {
             </header>
 
             {/* Body || Form */}
-            <form
-                className="w-full flex flex-col justify-around items-center gap-8"
-                onSubmit={onSubmit}
-            >
+            <form className="w-full flex flex-col justify-around items-center gap-8">
                 <h2 className="text-slate-500 text-xl font-medium">
                     Account Type
                 </h2>
@@ -83,9 +71,11 @@ export default function SignUpForm() {
                     </label>
                 </div>
 
-                <Button className="primary-gradiant">
-                    Next <FaArrowRight className="ml-1" size={12} />
-                </Button>
+                <Link href="signup/business/">
+                    <Button className="primary-gradiant">
+                        Next <FaArrowRight className="ml-1" size={12} />
+                    </Button>
+                </Link>
             </form>
 
             {/* Footer || Log In Link */}
