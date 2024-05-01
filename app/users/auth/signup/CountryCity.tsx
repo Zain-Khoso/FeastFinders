@@ -7,7 +7,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaArrowRight, FaArrowLeft, FaSort, FaCheck } from 'react-icons/fa';
 
 // Local Imports.
-import { getCountriesAndCities } from '@/utils/getStaticData';
+import countries from '@/data/countries.json';
+import citiesData from '@/data/cities.json';
 import type {
     State as IndividualState,
     Action as IndividualAction,
@@ -53,8 +54,8 @@ const formSchema = z.object({
 });
 type FormData = z.infer<typeof formSchema>;
 
-// Data.
-const data = getCountriesAndCities();
+// Static Data.
+const cities: any = citiesData;
 
 // Component.
 export default function EmailPhoneCountryCity({
@@ -108,10 +109,11 @@ export default function EmailPhoneCountryCity({
                                             }`}
                                         >
                                             {field.value
-                                                ? Object.keys(data).find(
-                                                      (key: any) =>
-                                                          key === field.value
-                                                  )
+                                                ? countries.find(
+                                                      (country) =>
+                                                          country.name ===
+                                                          field.value
+                                                  )?.name
                                                 : 'Select country'}
                                             <FaSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
@@ -127,31 +129,33 @@ export default function EmailPhoneCountryCity({
 
                                         <CommandList>
                                             <CommandGroup>
-                                                {Object.keys(data).map(
-                                                    (country: any) => (
-                                                        <CommandItem
-                                                            value={country}
-                                                            key={country}
-                                                            onSelect={() => {
-                                                                form.setValue(
-                                                                    'country',
-                                                                    country
-                                                                );
-                                                            }}
-                                                        >
-                                                            <FaCheck
-                                                                className={
-                                                                    'mr-2 h-4 w-4' +
-                                                                        country ===
-                                                                    field.value
-                                                                        ? 'opacity-100'
-                                                                        : 'opacity-0'
-                                                                }
-                                                            />
-                                                            {country}
-                                                        </CommandItem>
-                                                    )
-                                                )}
+                                                {countries.map((country) => (
+                                                    <CommandItem
+                                                        value={country.name}
+                                                        key={country.alpha3}
+                                                        onSelect={() => {
+                                                            form.setValue(
+                                                                'country',
+                                                                country.name
+                                                            );
+                                                            form.setValue(
+                                                                'city',
+                                                                ''
+                                                            );
+                                                        }}
+                                                    >
+                                                        <FaCheck
+                                                            className={
+                                                                'mr-2 h-4 w-4' +
+                                                                    country ===
+                                                                field.value
+                                                                    ? 'opacity-100'
+                                                                    : 'opacity-0'
+                                                            }
+                                                        />
+                                                        {country.name}
+                                                    </CommandItem>
+                                                ))}
                                             </CommandGroup>
                                         </CommandList>
                                     </Command>
@@ -184,14 +188,7 @@ export default function EmailPhoneCountryCity({
                                                     : ''
                                             }`}
                                         >
-                                            {field.value
-                                                ? data[
-                                                      form.watch('country')
-                                                  ]?.find(
-                                                      (city: any) =>
-                                                          city === field.value
-                                                  ) || 'Select city'
-                                                : 'Select city'}
+                                            {field.value || 'Select city'}
                                             <FaSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
                                     </FormControl>
@@ -206,31 +203,45 @@ export default function EmailPhoneCountryCity({
 
                                         <CommandList>
                                             <CommandGroup>
-                                                {data[
-                                                    form.watch('country')
-                                                ]?.map((city: any) => (
-                                                    <CommandItem
-                                                        value={city}
-                                                        key={city}
-                                                        onSelect={() => {
-                                                            form.setValue(
-                                                                'city',
-                                                                city
-                                                            );
-                                                        }}
-                                                    >
-                                                        <FaCheck
-                                                            className={
-                                                                'mr-2 h-4 w-4' +
-                                                                    city ===
-                                                                field.value
-                                                                    ? 'opacity-100'
-                                                                    : 'opacity-0'
-                                                            }
-                                                        />
-                                                        {city}
-                                                    </CommandItem>
-                                                ))}
+                                                {cities
+                                                    .find(
+                                                        (country: any) =>
+                                                            country.iso3 ===
+                                                            countries.find(
+                                                                (country) =>
+                                                                    country.name ===
+                                                                    form.watch(
+                                                                        'country'
+                                                                    )
+                                                            )?.alpha3
+                                                    )
+                                                    ?.cities.map(
+                                                        (city: any) => (
+                                                            <CommandItem
+                                                                value={
+                                                                    city.name
+                                                                }
+                                                                key={city.id}
+                                                                onSelect={() => {
+                                                                    form.setValue(
+                                                                        'city',
+                                                                        city.name
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <FaCheck
+                                                                    className={
+                                                                        'mr-2 h-4 w-4' +
+                                                                            city.name ===
+                                                                        field.value
+                                                                            ? 'opacity-100'
+                                                                            : 'opacity-0'
+                                                                    }
+                                                                />
+                                                                {city.name}
+                                                            </CommandItem>
+                                                        )
+                                                    )}
                                             </CommandGroup>
                                         </CommandList>
                                     </Command>
