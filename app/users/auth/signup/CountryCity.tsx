@@ -91,11 +91,8 @@ export default function EmailPhoneCountryCity({
                     name="country"
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
-                            {form.formState.errors.country ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Country</FormLabel>
-                            )}
+                            <FormLabel>Country</FormLabel>
+
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <FormControl>
@@ -161,6 +158,8 @@ export default function EmailPhoneCountryCity({
                                     </Command>
                                 </PopoverContent>
                             </Popover>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -171,11 +170,8 @@ export default function EmailPhoneCountryCity({
                     name="city"
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
-                            {form.formState.errors.city ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>City</FormLabel>
-                            )}
+                            <FormLabel>City</FormLabel>
+
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <FormControl>
@@ -247,6 +243,8 @@ export default function EmailPhoneCountryCity({
                                     </Command>
                                 </PopoverContent>
                             </Popover>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

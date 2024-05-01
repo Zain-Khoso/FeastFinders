@@ -128,11 +128,8 @@ export default function Password({
                     disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.password ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Password</FormLabel>
-                            )}
+                            <FormLabel>Password</FormLabel>
+
                             <FormControl>
                                 <div className="flex w-full max-w-sm items-center space-x-2">
                                     <Input
@@ -159,6 +156,8 @@ export default function Password({
                                     </Button>
                                 </div>
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -179,11 +178,8 @@ export default function Password({
                     disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.confirmPassword ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Confirm Password</FormLabel>
-                            )}
+                            <FormLabel>Confirm Password</FormLabel>
+
                             <FormControl>
                                 <div className="flex w-full max-w-sm items-center space-x-2">
                                     <Input
@@ -212,6 +208,8 @@ export default function Password({
                                     </Button>
                                 </div>
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

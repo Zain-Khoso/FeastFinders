@@ -133,17 +133,16 @@ export default function EmailPhoneCountryCity({
                     disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.email ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Email</FormLabel>
-                            )}
+                            <FormLabel>Email</FormLabel>
+
                             <FormControl>
                                 <Input
                                     {...field}
                                     placeholder="xyz@example.com"
                                 />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -155,14 +154,13 @@ export default function EmailPhoneCountryCity({
                     disabled={form.formState.isSubmitting}
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.username ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Username</FormLabel>
-                            )}
+                            <FormLabel>Username</FormLabel>
+
                             <FormControl>
                                 <Input {...field} placeholder="john_doe" />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -174,11 +172,7 @@ export default function EmailPhoneCountryCity({
                     disabled={form.formState.isSubmitting}
                     render={({ field: { ref, ...field } }) => (
                         <FormItem>
-                            {form.formState.errors.phone ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Phone</FormLabel>
-                            )}
+                            <FormLabel>Phone</FormLabel>
                             <FormControl>
                                 <PhoneInput
                                     {...field}
@@ -187,6 +181,7 @@ export default function EmailPhoneCountryCity({
                                     inputClass="!h-10 !w-full !rounded-md !border !border-input !text-sm !focus:border-2 !focus:border-slate-900 !disabled:cursor-not-allowed !disabled:opacity-50"
                                 />
                             </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

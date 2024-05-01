@@ -77,17 +77,16 @@ export default function AddressAboutMe({
                     name="address"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.address ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Address</FormLabel>
-                            )}
+                            <FormLabel>Address</FormLabel>
+
                             <FormControl>
                                 <Input
                                     {...field}
                                     placeholder="123 Main Street, Anytown, USA"
                                 />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -98,11 +97,7 @@ export default function AddressAboutMe({
                     name="about_me"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.about_me ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>About me</FormLabel>
-                            )}
+                            <FormLabel>About me</FormLabel>
                             <FormControl>
                                 <Textarea
                                     {...field}
@@ -110,6 +105,8 @@ export default function AddressAboutMe({
                                     className="resize-none"
                                 />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

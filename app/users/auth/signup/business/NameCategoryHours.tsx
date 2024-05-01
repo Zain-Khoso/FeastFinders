@@ -43,8 +43,9 @@ const formSchema = z.object({
         .min(1, { message: 'Business Name is required.' })
         .min(3, { message: 'Business Name must be at least 3 characters.' })
         .max(20, { message: "Business Name can't exceed 14 characters." }),
-    business_category: z.string(),
-    // .min(1, { message: 'Select a business category.' })
+    business_category: z
+        .string()
+        .min(1, { message: 'Select a business category.' }),
     business_hours: z.string(),
 });
 type FormData = z.infer<typeof formSchema>;
@@ -113,14 +114,13 @@ export default function NameCategoryHours({
                     name="business_name"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.business_name ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Business Name</FormLabel>
-                            )}
+                            <FormLabel>Business Name</FormLabel>
+
                             <FormControl>
                                 <Input {...field} placeholder="Royal Taj" />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -131,11 +131,8 @@ export default function NameCategoryHours({
                     name="business_category"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.business_category ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Business Category</FormLabel>
-                            )}
+                            <FormLabel>Business Category</FormLabel>
+
                             <Select
                                 onValueChange={field.onChange}
                                 defaultValue={field.value}
@@ -156,6 +153,8 @@ export default function NameCategoryHours({
                                     ))}
                                 </SelectContent>
                             </Select>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

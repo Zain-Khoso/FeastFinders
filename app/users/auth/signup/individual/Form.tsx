@@ -15,7 +15,7 @@ import Password from '../Password';
 
 // Component.
 export default function Form() {
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(1);
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const nextStep = () => setStep(step + 1);

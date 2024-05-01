@@ -77,14 +77,13 @@ export default function FirstnameLastname({
                     name="firstname"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.firstname ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Firstname</FormLabel>
-                            )}
+                            <FormLabel>Firstname</FormLabel>
+
                             <FormControl>
                                 <Input {...field} placeholder="John" />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -95,14 +94,13 @@ export default function FirstnameLastname({
                     name="lastname"
                     render={({ field }) => (
                         <FormItem>
-                            {form.formState.errors.lastname ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Lastname</FormLabel>
-                            )}
+                            <FormLabel>Lastname</FormLabel>
+
                             <FormControl>
                                 <Input {...field} placeholder="Doe" />
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

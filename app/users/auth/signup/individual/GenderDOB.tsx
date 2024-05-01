@@ -76,11 +76,8 @@ export default function GenderDOB({
                     name="dob"
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
-                            {form.formState.errors.dob ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Date of birth</FormLabel>
-                            )}
+                            <FormLabel>Date of birth</FormLabel>
+
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <FormControl>
@@ -122,6 +119,8 @@ export default function GenderDOB({
                                     />
                                 </PopoverContent>
                             </Popover>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -132,11 +131,8 @@ export default function GenderDOB({
                     name="gender"
                     render={({ field }) => (
                         <FormItem className="space-y-3">
-                            {form.formState.errors.gender ? (
-                                <FormMessage />
-                            ) : (
-                                <FormLabel>Gender</FormLabel>
-                            )}
+                            <FormLabel>Gender</FormLabel>
+
                             <FormControl>
                                 <RadioGroup
                                     onValueChange={field.onChange}
@@ -161,6 +157,8 @@ export default function GenderDOB({
                                     </FormItem>
                                 </RadioGroup>
                             </FormControl>
+
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
