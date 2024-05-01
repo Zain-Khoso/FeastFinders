@@ -1,6 +1,7 @@
 'use client';
 
 // Lib Imports.
+import Image from 'next/image';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -105,13 +106,24 @@ export default function EmailPhoneCountryCity({
                                                     : ''
                                             }`}
                                         >
-                                            {field.value
-                                                ? countries.find(
-                                                      (country) =>
-                                                          country.name ===
-                                                          field.value
-                                                  )?.name
-                                                : 'Select country'}
+                                            <div className="flex items-center gap-2">
+                                                {field.value && (
+                                                    <Image
+                                                        alt=""
+                                                        src={
+                                                            countries.find(
+                                                                (country) =>
+                                                                    country.name ===
+                                                                    field.value
+                                                            )?.file_url || ''
+                                                        }
+                                                        width={30}
+                                                        height={30}
+                                                    />
+                                                )}
+                                                {field.value ||
+                                                    'Select country'}
+                                            </div>
                                             <FaSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
                                     </FormControl>
@@ -149,6 +161,13 @@ export default function EmailPhoneCountryCity({
                                                                     ? 'opacity-100'
                                                                     : 'opacity-0'
                                                             }
+                                                        />
+                                                        <Image
+                                                            alt=""
+                                                            src={`https:${country.file_url}`}
+                                                            width={20}
+                                                            height={20}
+                                                            className="mr-2"
                                                         />
                                                         {country.name}
                                                     </CommandItem>
