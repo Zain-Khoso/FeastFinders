@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 // Local Imports.
 import Form from './Form';
+import { H3, Muted, P } from '@/components/ui/typography';
 
 // Metadata
 export const metadata: Metadata = {
@@ -25,10 +26,8 @@ export default function SignupPage() {
         <>
             {/* Header */}
             <div className="w-full flex flex-col items-center gap-2">
-                <h1 className="text-black text-xl font-semibold">Sign Up</h1>
-                <p className="text-slate-400 text-md">
-                    Expand Your Business with Feast Finder!
-                </p>
+                <H3>Sign Up</H3>
+                <Muted>Expand Your Business with Feast Finder!</Muted>
             </div>
 
             {/* Body || Form */}
@@ -36,13 +35,13 @@ export default function SignupPage() {
 
             {/* Footer || Log In Link */}
             <div className="w-full flex justify-center">
-                <p className="text-slate-400 text-md">
+                <P>
                     Already have an account?&nbsp;
                     <Link href="/users/auth/login" className=" text-cyan-500">
                         Login
                     </Link>
                     .
-                </p>
+                </P>
             </div>
         </>
     );

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { FaUser, FaBusinessTime, FaArrowRight } from 'react-icons/fa';
 
 // Local Imports.
+import { H3, Muted, Lead, P } from '@/components/ui/typography';
 import { Button } from '@/components/ui/button';
 
 // Component.
@@ -16,17 +17,13 @@ export default function SignUpForm() {
         <>
             {/* Header */}
             <header className="w-full flex flex-col items-center gap-1">
-                <h1 className="text-black text-xl font-semibold">Sign Up</h1>
-                <p className="text-slate-400 text-md">
-                    Enjoy your delicious meals!
-                </p>
+                <H3>Sign Up</H3>
+                <Muted>Enjoy your delicious meals!</Muted>
             </header>
 
             {/* Body || Form */}
             <form className="w-full flex flex-col justify-around items-center gap-8">
-                <h2 className="text-slate-500 text-xl font-medium">
-                    Account Type
-                </h2>
+                <Lead>Account Type</Lead>
 
                 <div className="w-full flex gap-4 px-4">
                     {/* Hidden radio inputs for choice functionality. */}
@@ -71,8 +68,8 @@ export default function SignUpForm() {
                     </label>
                 </div>
 
-                <Link href="signup/business/">
-                    <Button className="primary-gradiant">
+                <Link href={`signup/${type}/`}>
+                    <Button type="button" className="primary-gradiant">
                         Next <FaArrowRight className="ml-1" size={12} />
                     </Button>
                 </Link>
@@ -80,13 +77,13 @@ export default function SignUpForm() {
 
             {/* Footer || Log In Link */}
             <footer className="w-full flex justify-center">
-                <p className="text-slate-400 text-md">
+                <P>
                     Already have an account?&nbsp;
                     <Link href="/users/auth/login" className=" text-cyan-500">
                         Login
                     </Link>
                     .
-                </p>
+                </P>
             </footer>
         </>
     );
