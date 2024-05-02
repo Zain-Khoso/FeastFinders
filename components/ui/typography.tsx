@@ -60,7 +60,7 @@ export function InlineCode({ children }: Props) {
 }
 
 export function Lead({ children }: Props) {
-    return <p className="text-xl text-muted-foreground">{children}</p>;
+    return <p className="text-xl text-muted-foreground text-center text-pretty">{children}</p>;
 }
 
 export function Large({ children }: Props) {
