@@ -85,10 +85,14 @@ export default function EmailPhoneCountryCity({
 
     const onSubmit: SubmitHandler<FormData> = async function (data) {
         try {
-            const res = await Api.post('/users/available', data);
+            await Api.post('/users/available', data);
+        } catch (error: any) {
+            const {
+                response: { status, data },
+            }: { response: { status: number; data: any } } = error;
 
-            if (!res.data.status) {
-                const { email, username, phone } = res.data.errors;
+            if (status === 400) {
+                const { email, username, phone } = data.errors;
 
                 if (email)
                     form.setError('email', { type: 'custom', message: email });
@@ -102,13 +106,14 @@ export default function EmailPhoneCountryCity({
 
                 return;
             }
-        } catch {
+
             toast({
                 variant: 'destructive',
                 title: 'Server Error.',
                 description:
                     'Unable to get a response from the server. Please try again later.',
             });
+
             return;
         }
 

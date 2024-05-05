@@ -19,8 +19,14 @@ export default function Form() {
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
-    const signupUser = async function (): Promise<StatusAndMessageResponse> {
-        const { data } = await Api.post('/users/business/signup', state);
+    const signupUser = async function (password: {
+        password: string;
+        confirmPassword: string;
+    }): Promise<StatusAndMessageResponse> {
+        const { data } = await Api.post('/users/business/signup', {
+            ...state,
+            ...password,
+        });
         return data;
     };
 

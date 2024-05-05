@@ -40,7 +40,10 @@ type Props = {
     defaultValues: IndividualState | BusinessState;
     dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     prevStep: () => void;
-    signupUser: () => Promise<StatusAndMessageResponse>;
+    signupUser: (password: {
+        password: string;
+        confirmPassword: string;
+    }) => Promise<StatusAndMessageResponse>;
 };
 
 const formSchema = z
@@ -86,16 +89,9 @@ export default function Password({
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
     const onSubmit: SubmitHandler<FormData> = async function (data) {
-        Object.keys(data).forEach((_, index) => {
-            dispatch({
-                fieldName: Object.keys(data)[index],
-                fieldValue: Object.values(data)[index],
-            });
-        });
-
         // Signing the user up.
         try {
-            const { status, message } = await signupUser();
+            const { status, message } = await signupUser({ ...data });
 
             if (status) {
                 toast({ title: 'Sign up successful.', description: message });
@@ -229,7 +225,7 @@ export default function Password({
                         disabled={form.formState.isSubmitting}
                         className="primary-gradiant gap-1"
                     >
-                        Sign Up{' '}
+                        Sign Up
                         {form.formState.isSubmitting ? (
                             <FaSpinner
                                 className="ml-1 animate-spin"
