@@ -34,11 +34,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import { List } from '@/components/ui/typography';
 
 // Types.
 type Props = {
     defaultValues: IndividualState | BusinessState;
-    dispatch: React.Dispatch<IndividualAction | BusinessAction>;
     prevStep: () => void;
     signupUser: (password: {
         password: string;
@@ -71,7 +71,6 @@ type FormData = z.infer<typeof formSchema>;
 // Component.
 export default function Password({
     defaultValues,
-    dispatch,
     prevStep,
     signupUser,
 }: Props) {
@@ -159,13 +158,13 @@ export default function Password({
                 />
 
                 {/* Guide */}
-                <ul className="list-inside list-disc p-2 border rounded-md">
+                <List>
                     <li>Between 8 to 30 characters long.</li>
                     <li>At least 1 uppercase character.</li>
                     <li>At least 1 lowercase character.</li>
                     <li>At least 1 numeric character.</li>
                     <li>At least 1 special character.</li>
-                </ul>
+                </List>
 
                 {/* Confirm Password */}
                 <FormField

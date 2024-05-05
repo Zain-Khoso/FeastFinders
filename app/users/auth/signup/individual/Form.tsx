@@ -79,7 +79,6 @@ export default function Form() {
         return (
             <Password
                 defaultValues={state}
-                dispatch={dispatch}
                 prevStep={prevStep}
                 signupUser={signupUser}
             />
