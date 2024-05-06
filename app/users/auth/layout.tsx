@@ -1,5 +1,22 @@
+// Lib Imports.
+import { Metadata } from 'next';
 import React from 'react';
 
+// Metadata.
+export const metadata: Metadata = {
+    title: 'Login to Feast Finder: Your Premier Destination for Food Delivery',
+    description:
+        'Log in to Feast Finder, your premier destination for seamless food delivery. Access your account and explore a diverse range of cuisines curated for your palate. Join us and indulge in a world of flavor today.',
+    keywords: [
+        'login',
+        'feast finder',
+        'food delivery platform',
+        'account access',
+        'seamless login',
+    ],
+};
+
+// Types.
 type Props = {
     children: React.ReactNode;
 };
