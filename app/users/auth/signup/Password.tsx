@@ -15,14 +15,8 @@ import {
 } from 'react-icons/fa';
 
 // Local Imports.
-import type {
-    State as IndividualState,
-    Action as IndividualAction,
-} from './individual/reducer';
-import type {
-    State as BusinessState,
-    Action as BusinessAction,
-} from './business/reducer';
+import type { State as IndividualState } from './individual/reducer';
+import type { State as BusinessState } from './business/reducer';
 import {
     Form,
     FormControl,
