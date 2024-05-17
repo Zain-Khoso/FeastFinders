@@ -1,7 +1,6 @@
 // Lib Imports.
 import React from 'react';
 
-
 // Types.
 type Props = {
     children: React.ReactNode;

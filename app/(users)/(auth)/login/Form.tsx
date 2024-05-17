@@ -2,7 +2,7 @@
 
 // Lib Imports.
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash, FaSignInAlt, FaSpinner } from 'react-icons/fa';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -47,6 +47,23 @@ export default function LogInForm() {
     const router = useRouter();
     const { toast } = useToast();
     const [passwordVisible, setPasswordVisible] = useState(false);
+
+    // Checking for wheather a user is already logged in.
+    useEffect(() => {
+        (async function () {
+            const authToken = localStorage.getItem('auth');
+
+            const { status, data } = await Api.get(
+                `users/auth/verify-user/${authToken}`
+            );
+
+            if (status === 200) {
+                if (data.user.account_type === 'business')
+                    router.push('/profile');
+                else router.push('/');
+            }
+        })();
+    }, []);
 
     const onSubmit: SubmitHandler<FormData> = async function (data) {
         // Signing the user up.
@@ -93,7 +110,8 @@ export default function LogInForm() {
                 toast({
                     variant: 'destructive',
                     title: 'Server Error',
-                    description: "We are having some trouble on our side. please try again later.",
+                    description:
+                        'We are having some trouble on our side. please try again later.',
                 });
             }
         }

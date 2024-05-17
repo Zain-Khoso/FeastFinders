@@ -1,7 +1,8 @@
 'use client';
 
 // Lib Imports.
-import { useState, useReducer } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState, useReducer, useEffect } from 'react';
 
 // Local Imports.
 import { Api } from '@/utils/axiosInstances';
@@ -16,6 +17,24 @@ import Password from '../Password';
 export default function Form() {
     const [step, setStep] = useState(1);
     const [state, dispatch] = useReducer(reducer, initialState);
+    const router = useRouter();
+
+    // Checking for wheather a user is already logged in.
+    useEffect(() => {
+        (async function () {
+            const authToken = localStorage.getItem('auth');
+
+            const { status, data } = await Api.get(
+                `users/auth/verify-user/${authToken}`
+            );
+
+            if (status === 200) {
+                if (data.user.account_type === 'business')
+                    router.push('/profile');
+                else router.push('/');
+            }
+        })();
+    }, []);
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
