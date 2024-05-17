@@ -79,7 +79,7 @@ export default function SignUpForm() {
             <footer className="w-full flex justify-center">
                 <P>
                     Already have an account?&nbsp;
-                    <Link href="/users/auth/login" className=" text-cyan-500">
+                    <Link href="/login" className=" text-cyan-500">
                         Login
                     </Link>
                     .
