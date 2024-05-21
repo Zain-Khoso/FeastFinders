@@ -84,11 +84,14 @@ export default function Password({
     const onSubmit: SubmitHandler<FormData> = async function (data) {
         // Signing the user up.
         try {
-            const { status, message } = await signupUser({ ...data });
+            const { status, message } = await signupUser(data);
 
             if (status) {
                 toast({ title: 'Sign up successful.', description: message });
-                router.push('/');
+
+                if (defaultValues.account_type === 'indivisual')
+                    router.push('/');
+                else router.push('/profile');
             } else {
                 toast({
                     variant: 'destructive',
