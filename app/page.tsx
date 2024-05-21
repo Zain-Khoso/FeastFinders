@@ -1,11 +1,16 @@
 // Local Imports.
-import { H1, Lead } from '@/components/ui/typography';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
     return (
-        <div className="w-full h-[100vh] flex flex-col gap-4 justify-center items-center">
-            <H1>Feast Finders</H1>
-            <Lead>This Web App is currently under development.</Lead>
-        </div>
+        <>
+            <header>
+                <Navbar />
+            </header>
+
+            <main></main>
+
+            <footer></footer>
+        </>
     );
 }

@@ -51,17 +51,17 @@ export default function LogInForm() {
     // Checking for wheather a user is already logged in.
     useEffect(() => {
         (async function () {
-            const authToken = localStorage.getItem('auth');
+            try {
+                const authToken = localStorage.getItem('auth');
 
-            const { status, data } = await Api.get(
-                `users/auth/verify-user/${authToken}`
-            );
+                const { data } = await Api.get(
+                    `users/auth/verify-user/${authToken}`
+                );
 
-            if (status === 200) {
                 if (data.user.account_type === 'business')
                     router.push('/profile');
                 else router.push('/');
-            }
+            } catch {}
         })();
     }, []);
 
